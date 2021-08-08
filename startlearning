@@ -106,9 +106,10 @@ __ENTER__() {
   read ENTER
   echo
 }
+__chapter1__() {
 printf "${S6}LETS START OUR BASH LEARNING ;)${R0}\n"
 echo
-__chapter1__() {
+
 echo -e "      ${B4} ${S2}CHAPTER:- 1 ${R0} ${R1}"
 echo
 echo -e "
@@ -190,9 +191,14 @@ then it will run your script :)
 play assets/chapter_1/ch_1pr_4.mp3 > /dev/null 2>&1
 __ENTER__
 }
-__chapter1__
+
 
 
 if [[ ${comand} == 'startlearning -1' ]]; then
+__chapter1__
+elif [[ ${comand} == 'startlearning -u' || ${comand} == 'startlearning --update' ]]; then
+git pull
+exit 1
+else
 __chapter1__
 fi
