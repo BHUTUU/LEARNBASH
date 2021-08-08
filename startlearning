@@ -192,10 +192,39 @@ play assets/chapter_1/ch_1pr_4.mp3 > /dev/null 2>&1
 __ENTER__
 }
 
+__chapter2__() {
+echo -e "      ${B4} ${S2}CHAPTER:- 2 ${R0} ${R1}"
+echo
+echo -e "
+    In the previous chapter we have leant how to make a simple bash script.
+      Now its time to learn some more basic commands or syntaxes to use in our
+      script to make it awesome :)!
+" | pv -qL 1000 | lolcat
+play assets/chapter_2/ch_2pr_1.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+  Quick note: Anything encased in [ ] means that it’s optional.
+              Some commands can be used without options or specifying files.
 
+ ls — List directory contents
 
-if [[ ${comand} == 'startlearning -1' ]]; then
-__chapter1__
+	ls is probably the most common command.
+	A lot of times, you’ll be working in a directory
+	and you’ll need to know what files are located there.
+	The ls command allows you to quickly view all files
+	within the specified directory.
+
+Syntax: ls [option(s)] [file(s)]
+
+Common options: -a, -l
+" | pv -qL 1000 | lolcat
+play assets/chapter_2/ch_2pr_2.mp3 > /dev/null 2>&1
+__ENTER__
+
+}
+if [[ ${comand} == 'startlearning -2' ]]; then
+__chapter2__
+
 elif [[ ${comand} == 'startlearning -u' || ${comand} == 'startlearning --update' ]]; then
 git pull
 exit 1
@@ -251,5 +280,6 @@ ${B3}${S5} THIS PROGRAM IS UNDER HEAVY DEVELOPMENT SO PLEASE HAVE PATIENCE! OTHE
 "
 else
 __chapter1__
+__chapter2__
 fi
 
