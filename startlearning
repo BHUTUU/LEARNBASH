@@ -1,4 +1,5 @@
 #!/bin/bash
+#set -x
 args="$@"
 comand="startlearning ${args}"
 PWD=$(pwd)
@@ -20,27 +21,30 @@ distro=$(pwd)
 
 if [[ ${OS^^} == *'ANDROID'* ]]; then
   if [[ ${distro} == *'com.termux'* ]]; then
-    distro="TERMUX"
+    dist="TERMUX"
 
   elif [[ ${distro} == *'hilled.pwnterm'* ]]; then
-    distro="PWN-TERM"
+    dist="PWN-TERM"
 
   else
     printf "${S2}[${S1}!${S2}]${S1} YOUR SYSTEM IS NOT COMPATIBLE FOR THIS SCRIPT!! :( I AM SO SORRY FOR THIS!!${R0}\n"
     exit 1
   fi
 elif [[ ${OS^^} == *'LINUX'* ]]; then
-  disto="LINUX"
+  dist="LINUX"
 
 else
     printf "${S2}[${S1}!${S2}]${S1} YOUR SYSTEM IS NOT COMPATIBLE FOR THIS SCRIPT!! :( I AM SO SORRY FOR THIS!!${R0}\n"
 exit 1
 fi
+
 #<<<----------REQUIREMENTS---------->>>
-if [[ $distro == TERMUX ]]; then
+if [[ $dist == TERMUX ]]; then
+
   cd /data/data/com.termux/files/usr/bin
 fi
-if [[ $distro == PWN-TERM ]]; then
+if [[ $dist == PWN-TERM ]]; then
+
   cd /data/data/hilled.pwnterm/files/usr/bin
 fi
   PYTHON=$(find python*)
@@ -66,7 +70,8 @@ fi
     apt install sox -y
   fi
 
-  if [[ $distro == LINUX ]]; then
+  if [[ $dist == LINUX ]]; then
+
     cd /usr/bin
     PYTHON=$(find python*)
     PV=$(find pv)
@@ -86,6 +91,8 @@ fi
       sudo apt install sox -y
     fi
   fi
+
+cd $distro
 echo
 printf "${S5}REQUIREMENTS SATISFIED!!${R0}\n" | pv -qL 100
 echo
@@ -107,7 +114,7 @@ echo
 echo -e "
 Bash is an acronym of “Bourne-Again Shell”. It is a default command-line interpreter for UNIX and Linux based operating systems. In UNIX and Linux based operating systems, a terminal window is consist of a shell and Bash.
 " | pv -qL 1000 | lolcat
-play /data/data/com.termux/files/home/work/LEARNBASH/.assets/chapter_1/ch_1pr_1.mp3 > /dev/null 2>&1
+play assets/chapter_1/ch_1pr_1.mp3 > /dev/null 2>&1
 __ENTER__
 echo -e "
 first of all we will learn basic commands! so lets go...
@@ -130,7 +137,7 @@ echo -e "
 result==> hello world
 " | pv -qL 1000 | lolcat
 echo '#note in printf we used (\n) to go to next line so that other next objects must be printed on next line! but in echo we do not need to do so.' | pv -qL 1000 | lolcat
-play /data/data/com.termux/files/home/work/LEARNBASH/.assets/chapter_1/ch_1pr_2.mp3 > /dev/null 2>&1
+play assets/chapter_1/ch_1pr_2.mp3 > /dev/null 2>&1
 __ENTER__
 
 echo -e "
@@ -151,7 +158,7 @@ then open nano by 'nano test1'
 
   => '#!' is called shebang. In computing, a shebang is the character sequence consisting of the characters number sign and exclamation mark at the beginning of a script. It is also called sha-bang, hashbang, pound-bang, or hash-pling.
 " | pv -qL 1000 | lolcat
-play /data/data/com.termux/files/home/work/LEARNBASH/.assets/chapter_1/ch_1pr_3.mp3 > /dev/null 2>&1
+play assets/chapter_1/ch_1pr_3.mp3 > /dev/null 2>&1
 __ENTER__
 echo -e "
 After this from second line you can write your codes ;)
@@ -180,7 +187,7 @@ you have two ways to run it :-
 
 then it will run your script :)
 " | pv -qL 1000 | lolcat
-play /data/data/com.termux/files/home/work/LEARNBASH/.assets/chapter_1/ch_1pr_4.mp3 > /dev/null 2>&1
+play assets/chapter_1/ch_1pr_4.mp3 > /dev/null 2>&1
 __ENTER__
 }
 __chapter1__
