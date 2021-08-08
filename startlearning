@@ -1,0 +1,184 @@
+#!/bin/bash
+PWD=$(pwd)
+#<<<----------colour substitution by variables---------->>>
+B0="$(printf '\033[100m')" S0="$(printf '\033[30m')"
+B1="$(printf '\033[101m')" S1="$(printf '\033[31m')"
+B2="$(printf '\033[102m')" S2="$(printf '\033[32m')"
+B3="$(printf '\033[103m')" S3="$(printf '\033[33m')"
+B4="$(printf '\033[104m')" S4="$(printf '\033[34m')"
+B5="$(printf '\033[105m')" S5="$(printf '\033[35m')"
+B6="$(printf '\033[106m')" S6="$(printf '\033[36m')"
+B7="$(printf '\033[107m')" S7="$(printf '\033[37m')"
+R10="$(printf '\033[0;1m')" R0="$(printf '\033[00m')"
+#<<<-----------special colours----------->>>
+T="$(printf '\033[5;1;32m')"
+#<<<----------DISTRO-VRIFICATION---------->>>
+OS=$(uname -o)
+distro=$(pwd)
+
+if [[ ${OS^^} == *'ANDROID'* ]]; then
+  if [[ ${distro} == *'com.termux'* ]]; then
+    distro="TERMUX"
+
+  elif [[ ${distro} == *'hilled.pwnterm'* ]]; then
+    distro="PWN-TERM"
+
+  else
+    printf "${S2}[${S1}!${S2}]${S1} YOUR SYSTEM IS NOT COMPATIBLE FOR THIS SCRIPT!! :( I AM SO SORRY FOR THIS!!${R0}\n"
+    exit 1
+  fi
+elif [[ ${OS^^} == *'LINUX'* ]]; then
+  disto="LINUX"
+
+else
+    printf "${S2}[${S1}!${S2}]${S1} YOUR SYSTEM IS NOT COMPATIBLE FOR THIS SCRIPT!! :( I AM SO SORRY FOR THIS!!${R0}\n"
+exit 1
+fi
+#<<<----------REQUIREMENTS---------->>>
+if [[ $distro == TERMUX ]]; then
+  cd /data/data/com.termux/files/usr/bin
+fi
+if [[ $distro == PWN-TERM ]]; then
+  cd /data/data/hilled.pwnterm/files/usr/bin
+fi
+  PYTHON=$(find python*)
+  PV=$(find pv)
+  LOLCAT=$(find lolcat)
+  PLAY=$(find play)
+
+  if [[ $PYTHON != 'python'* ]]; then
+    apt install python python2 -y
+    apt update && apt upgrade -y
+    python3 -m pip install --upgrade pip
+  fi
+
+  if [[ $PV != pv ]]; then
+    apt install pv -y
+  fi
+
+  if [[ $LOLCAT != lolcat ]]; then
+    pip install lolcat
+  fi
+
+  if [[ $PLAY != play ]]; then
+    apt install sox -y
+  fi
+
+  if [[ $distro == LINUX ]]; then
+    cd /usr/bin
+    PYTHON=$(find python*)
+    PV=$(find pv)
+    LOLCAT=$(find lolcat)
+    PLAY=$(find play)
+    if [[ $PYTHON != python ]]; then
+      sudo apt install python python2 -y
+      sudo apt update && apt upgrade -y
+    fi
+    if [[ $PV != pv ]]; then
+      apt install pv -y
+    fi
+    if [[ $LOLCAT != lolcat ]]; then
+      sudo pip install lolcat
+    fi
+    if [[ $PLAY != play ]]; then
+      sudo apt install sox -y
+    fi
+  fi
+echo
+printf "${S5}REQUIREMENTS SATISFIED!!${R0}\n" | pv -qL 100
+echo
+#<<<----some functions---->>>
+wait() {
+  sleep 0.02
+}
+__ENTER__() {
+  echo
+  printf "Press enter key to continue${T}__\e[0;0;0m\n"
+  read ENTER
+  echo
+}
+printf "${S6}LETS START OUR BASH LEARNING ;)${R0}\n"
+echo
+__chapter1__() {
+echo -e "      ${B4} ${S2}CHAPTER:- 1 ${R0} ${R1}"
+echo
+echo -e "
+Bash is an acronym of “Bourne-Again Shell”. It is a default command-line interpreter for UNIX and Linux based operating systems. In UNIX and Linux based operating systems, a terminal window is consist of a shell and Bash.
+" | pv -qL 1000 | lolcat
+play /data/data/com.termux/files/home/work/LEARNBASH/.assets/chapter_1/ch_1pr_1.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+first of all we will learn basic commands! so lets go...
+" | pv -qL 1000 | lolcat
+echo -e "
+First command is 'echo' or 'printf'
+
+We use any of these to command to print anything on the screen.
+examples:-
+
+" | pv -qL 1000 | lolcat
+echo '#1) echo "hello world"' | pv -qL 1000 | lolcat
+
+echo -e "
+result==> hello world
+" | pv -qL 1000 | lolcat
+echo '#2) printf "hello world\n"' | pv -qL 1000 | lolcat
+
+echo -e "
+result==> hello world
+" | pv -qL 1000 | lolcat
+echo '#note in printf we used (\n) to go to next line so that other next objects must be printed on next line! but in echo we do not need to do so.' | pv -qL 1000 | lolcat
+play /data/data/com.termux/files/home/work/LEARNBASH/.assets/chapter_1/ch_1pr_2.mp3 > /dev/null 2>&1
+__ENTER__
+
+echo -e "
+if you want to make a script for printing your desired thing, then lets have an example for that!! ;)
+
+  first of all you have to open any text editor for example :- 'nano', 'vim', 'neovim', etc.
+
+  since you are a beginer then you must try with nano;
+  choose a name for your script (say, test1)
+
+then open nano by 'nano test1'
+
+  here you have to define the language which you are going to write (here its 'bash')
+
+  in first line have to write '#!/bin/bash'
+
+  you may noticing '#!' that what is this?!!
+
+  => '#!' is called shebang. In computing, a shebang is the character sequence consisting of the characters number sign and exclamation mark at the beginning of a script. It is also called sha-bang, hashbang, pound-bang, or hash-pling.
+" | pv -qL 1000 | lolcat
+play /data/data/com.termux/files/home/work/LEARNBASH/.assets/chapter_1/ch_1pr_3.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+After this from second line you can write your codes ;)
+
+example:-
+#!/bin/bash
+echo \"hello world\"
+echo  #<- this blank echo is used to make one line gap!" | pv -qL 1000 | lolcat
+echo 'printf "hello world\n"' | pv -qL 1000 | lolcat
+echo -e "
+
+#After writing all your codes you need to save then!
+command to save :- CTRL + X
+ then it will ask you if you want to save or not, just press y and then Enter key!
+
+NOW, in order to run it you have to give it execution permission by:- chmod +x test1
+
+of your script name is different then you just have to replace test1 by your script name! :)
+
+now it time to run it!!
+
+you have two ways to run it :-
+
+1>     ./test1
+2>     bash test1
+
+then it will run your script :)
+" | pv -qL 1000 | lolcat
+play /data/data/com.termux/files/home/work/LEARNBASH/.assets/chapter_1/ch_1pr_4.mp3 > /dev/null 2>&1
+__ENTER__
+}
+__chapter1__
