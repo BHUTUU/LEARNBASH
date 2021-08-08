@@ -220,7 +220,45 @@ Common options: -a, -l
 " | pv -qL 1000 | lolcat
 play assets/chapter_2/ch_2pr_2.mp3 > /dev/null 2>&1
 __ENTER__
+echo -e "
 
+ echo — Prints text to the terminal window
+
+       echo prints text to the terminal window and is
+       typically used in shell scripts and batch files
+       to output status text to the screen or a computer file.
+       Echo is also particularly useful for showing the values of
+       environmental variables, which tell the shell how to behave
+       as a user works at the command line or in scripts.
+
+Syntax: echo [option(s)] [string(s)]
+
+Common options: -e, -n
+" | pv -qL 1000 | lolcat
+play assets/chapter_2/ch_2pr_3.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+ touch — Creates a file
+
+       touch is going to be the easiest way to create new files,
+       but it can also be used to change timestamps on files and/or directories.
+       You can create as many files as you want in a single command without worrying
+       about overwriting files with the same name.
+
+Syntax: touch [option(s)] file_name(s)
+
+Common options: -a, -m, -r, -d
+
+#To create multiple files:-
+
+example:-
+    touch test1 test2 test3 test4
+result :- it will create all files that you supposed
+to be created. i.e test1, test2, test3, test4
+
+" | pv -qL 1000 | lolcat
+play assets/chapter_2/ch_2pr_4.mp3 > /dev/null 2>&1
+__ENTER__
 }
 if [[ ${comand} == 'startlearning -2' ]]; then
 __chapter2__
