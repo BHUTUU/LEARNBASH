@@ -1,4 +1,6 @@
 #!/bin/bash
+args="$@"
+comand="startlearning ${args}"
 PWD=$(pwd)
 #<<<----------colour substitution by variables---------->>>
 B0="$(printf '\033[100m')" S0="$(printf '\033[30m')"
@@ -182,3 +184,8 @@ play /data/data/com.termux/files/home/work/LEARNBASH/.assets/chapter_1/ch_1pr_4.
 __ENTER__
 }
 __chapter1__
+
+
+if [[ ${comand} == 'startlearning -1' ]]; then
+__chapter1__
+fi
