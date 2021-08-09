@@ -283,6 +283,26 @@ test2 which is inside test1 which is also inside the test directory
 " | pv -qL 1000 | lolcat
 play assets/chapter_2/ch_2pr_5.mp3 > /dev/null 2>&1
 __ENTER__
+echo -e "
+ grep — search
+
+       grep is used to search text for patterns specified by the user.
+       It is one of the most useful and powerful commands. There are
+       often scenarios where you’ll be tasked to find a particular string
+       or pattern within a file, but you don’t know where to start looking,
+       that is where grep is extremely useful.
+
+Syntax: grep [option(s)] pattern [file(s)]
+
+Common options: -i, -c, -n , -o
+example:-
+    uname -o | grep 'Android'
+result:- Android   #for android users
+result:-           #for other users its vacant or we can say null.
+
+" | pv -qL 1000 | lolcat
+play assets/chapter_2/ch_2pr_6.mp3 > /dev/null 2>&1
+__ENTER__
 }
 if [[ ${comand} == 'startlearning -2' ]]; then
 __chapter2__
