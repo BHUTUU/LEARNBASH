@@ -39,14 +39,15 @@ exit 1
 fi
 
 #<<<----------REQUIREMENTS---------->>>
-if [[ $dist == TERMUX ]]; then
+if [[ ${OS^^} == *'ANDROID'* ]]; then
+ if [[ $dist == TERMUX ]]; then
 
   cd /data/data/com.termux/files/usr/bin
-fi
-if [[ $dist == PWN-TERM ]]; then
+
+ elif [[ $dist == PWN-TERM ]]; then
 
   cd /data/data/hilled.pwnterm/files/usr/bin
-fi
+ fi
   PYTHON=$(find python*)
   PV=$(find pv)
   LOLCAT=$(find lolcat)
@@ -70,8 +71,8 @@ fi
     pkg install sox -y
   fi
 
-  if [[ $dist == LINUX ]]; then
 
+elif [[ ${OS^^} == *'LINUX'* ]]; then
     cd /usr/bin
     PYTHON=$(find python*)
     PV=$(find pv)
@@ -90,7 +91,10 @@ fi
     if [[ $PLAY != play ]]; then
       sudo apt install sox -y
     fi
-  fi
+else
+    printf "${S2}[${S1}!${S2}]${S1}YOUR SYSTEM IS NOT COMPATIBLE WITH THIS PROGRAM!!${R0}\n"
+    exit 1
+fi
 
 cd $distro
 echo
@@ -289,7 +293,6 @@ ${S7}IF you want to open any particular chapter and continue from there then do:
 ${S6}example:-${R0}
 
 ${S2}  ./startlearning -3${R0}
-
 ${S4}This will start from chapter 3 and continue${R0}
 
 ${S2}>>> ${S6}To run this program just run${R0} ${B5} './startlearning' ${R1}
@@ -301,7 +304,7 @@ ${S3}To exit program just do ${S3}${B7} ctrl + c ${R1}
 
 ${S5}<${S1}----${S2}x${S1}----${S5}>${R0}
 "
-elif [[ ${comand} == 'startlearning -c' || ${command} == 'startlearning --content' ]]; then
+elif [[ ${comand} == 'startlearning -c' || ${comand} == 'startlearning --content' || ${comand} == 'startlearning --chapter' || ${comand} == 'startlearning --list' ]]; then
 echo -e "
 
 ${B4}${T2}SL. NO${R0}${R1}               ${B4}${T2} Chapter Name and discription.${R0}${R1}
@@ -312,6 +315,11 @@ ${S6}1.                    Introduction to bash scripting${R0}
                        ${S3} *Shebang (#!)${R0}
                        ${S3} *how to give exicution permission to any script${R0}
                        ${S3} *how to run a bash script${R0}
+
+${S6}2.                    Introduction to basic commands${R0}
+                       ${S3} *ls    -List directory contents${R0}
+                       ${S3} *echo  -printing command${R0}
+                       ${S3} *touch -file creating command${R0}
 
 ${B3}${S5} THIS PROGRAM IS UNDER HEAVY DEVELOPMENT SO PLEASE HAVE PATIENCE! OTHER CHAPTERS WILL BE ADDED VERY SOON !${R0}${R1}
 
