@@ -263,6 +263,26 @@ to be created. i.e test1, test2, test3, test4
 " | pv -qL 1000 | lolcat
 play assets/chapter_2/ch_2pr_4.mp3 > /dev/null 2>&1
 __ENTER__
+echo -e "
+ mkdir — Create a directory
+
+       mkdir is a useful command you can use to create directories.
+       Any number of directories can be created simultaneously which
+       can greatly speed up the process.
+
+Syntax: mkdir [option(s)] directory_name(s)
+
+Common options: -m, -p, -v
+
+#To create directories under directry
+
+example:-
+    mkdir -p test/test1/test2/test3
+result :- it has created a directory named test3 inside
+test2 which is inside test1 which is also inside the test directory
+" | pv -qL 1000 | lolcat
+play assets/chapter_2/ch_2pr_5.mp3 > /dev/null 2>&1
+__ENTER__
 }
 if [[ ${comand} == 'startlearning -2' ]]; then
 __chapter2__
