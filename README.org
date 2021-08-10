@@ -1,0 +1,24 @@
+#+TITLE: learnbash
+
+* Table of contents
+:PROPERTIES:
+:TOC:
+:END:
+:CONTENTS:
+- [[#about][About]]
+- [[#usage][Usage]]
+:END:
+
+* About
+
+This program is scripted in bash which is made to help the user learn the basics of bash scripting which is explained through visual and audio explanation.
+
+* Usage
+
+=./startlearning -h= for help
+
+=./startlearning -u= for update
+
+=./startlearning= to run this program
+
+=./startlearning -c= to see the content list

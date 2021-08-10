@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 #uncomment the following command for debug mode
 #set -x
 
@@ -8,100 +9,90 @@ comand="startlearning ${args}"
 PWD=$(pwd)
 #<<<----------colour substitution by variables---------->>>
 B0="$(printf '\033[100m')" S0="$(printf '\033[30m')"
-B1="$(printf '\033[101m')" S1="$(printf '\033[31m')"
-B2="$(printf '\033[102m')" S2="$(printf '\033[32m')"
-B3="$(printf '\033[103m')" S3="$(printf '\033[33m')"
-B4="$(printf '\033[104m')" S4="$(printf '\033[34m')"
-B5="$(printf '\033[105m')" S5="$(printf '\033[35m')"
-B6="$(printf '\033[106m')" S6="$(printf '\033[36m')"
-B7="$(printf '\033[107m')" S7="$(printf '\033[37m')"
+B1="$(printf '\033[91m')" S1="$(printf '\033[31m')"
+B2="$(printf '\033[92m')" S2="$(printf '\033[32m')"
+B3="$(printf '\033[93m')" S3="$(printf '\033[33m')"
+B4="$(printf '\033[94m')" S4="$(printf '\033[34m')"
+B5="$(printf '\033[95m')" S5="$(printf '\033[35m')"
+B6="$(printf '\033[96m')" S6="$(printf '\033[36m')"
+B7="$(printf '\033[97m')" S7="$(printf '\033[37m')"
 R1="$(printf '\033[0;1m')" R0="$(printf '\033[00m')"
 #<<<-----------special colours----------->>>
 T="$(printf '\033[5;1;32m')"
-#<<<----------DISTRO-VRIFICATION---------->>>
+#<<<----------Variables declaration---------->>>
 OS=$(uname -o)
 distro=$(pwd)
-
-if [[ ${OS^^} == *'ANDROID'* ]]; then
-  if [[ ${distro} == *'com.termux'* ]]; then
-    dist="TERMUX"
-
-  elif [[ ${distro} == *'hilled.pwnterm'* ]]; then
-    dist="PWN-TERM"
-
-  else
-    printf "${S2}[${S1}!${S2}]${S1} YOUR SYSTEM IS NOT COMPATIBLE FOR THIS SCRIPT!! :( I AM SO SORRY FOR THIS!!${R0}\n"
-    exit 1
-  fi
-elif [[ ${OS^^} == *'LINUX'* ]]; then
-  dist="LINUX"
-
-else
-    printf "${S2}[${S1}!${S2}]${S1} YOUR SYSTEM IS NOT COMPATIBLE FOR THIS SCRIPT!! :( I AM SO SORRY FOR THIS!!${R0}\n"
-exit 1
-fi
-
-#<<<----------REQUIREMENTS---------->>>
-if [[ ${OS^^} == *'ANDROID'* ]]; then
- if [[ $dist == TERMUX ]]; then
-
-  cd /data/data/com.termux/files/usr/bin
-
- elif [[ $dist == PWN-TERM ]]; then
-
-  cd /data/data/hilled.pwnterm/files/usr/bin
- fi
-  PYTHON=$(find python*)
-  PV=$(find pv)
-  LOLCAT=$(find lolcat)
-  PLAY=$(find play)
-
-  if [[ $PYTHON != 'python'* ]]; then
-    apt install python python2 -y
-    apt update && apt upgrade -y
-    python3 -m pip install --upgrade pip
-  fi
-
-  if [[ $PV != pv ]]; then
-    pkg install pv -y
-  fi
-
-  if [[ $LOLCAT != lolcat ]]; then
-    pip install lolcat
-  fi
-
-  if [[ $PLAY != play ]]; then
-    pkg install sox -y
-  fi
-
-
-elif [[ ${OS^^} == *'LINUX'* ]]; then
-    cd /usr/bin
-    PYTHON=$(find python*)
-    PV=$(find pv)
-    LOLCAT=$(find lolcat)
-    PLAY=$(find play)
-    if [[ $PYTHON != python ]]; then
-      sudo apt install python python2 -y
-      sudo apt update && apt upgrade -y
-    fi
-    if [[ $PV != pv ]]; then
-      apt install pv -y
-    fi
-    if [[ $LOLCAT != lolcat ]]; then
-      sudo pip install lolcat
-    fi
-    if [[ $PLAY != play ]]; then
-      sudo apt install sox -y
-    fi
-else
-    printf "${S2}[${S1}!${S2}]${S1}YOUR SYSTEM IS NOT COMPATIBLE WITH THIS PROGRAM!!${R0}\n"
-    exit 1
-fi
-
-cd $distro
+exit_on_signal_SIGINT () {
+    echo "${S1} [✗] Received INTR call - Exiting...${R0}"
+    exit 0
+}
+trap exit_on_signal_SIGINT SIGINT
+#<<<----------Requirements---------->>>
+case ${OS} in
+    Android)
+	pkg=(python pv sox)
+	for i in "${pkg[@]}"
+	do
+	    sleep 0.3
+	    if ! hash "${i}" 2>/dev/null;then
+		echo "${R1}Installing ${i}"
+		pkg install "${i}" -y
+	    fi
+	done
+	;;
+    GNU/Linux)
+	pkg=(pv sox)
+	os="$(source /etc/os-release && echo "${ID}" )"
+	case "${os}" in
+	    arch|archarm|arcolinux|artix|manjaro|garuda|predator|endeavouros)
+		pm="sudo pacman -Syu --noconfirm"
+		;;
+	    debian|ubuntu|linuxmint|kali|parrot|raspbian)
+		pm="sudo apt install -y"
+		;;
+	    fedora)
+		pm="sudo dnf install -y"
+		;;
+	    freebsd)
+		pm="sudo pkg install -y"
+		;;
+	    gentoo)
+		pm="sudo emerge --ask"
+		;;
+	    void)
+		pm="sudo xbps-install"
+		;;
+	    puppy_fossapup64)
+		pm="sudo pkg g"
+		;;
+	    nixos)
+		pm="nix-env -iA nixos."
+		;;
+	    solus)
+		pm="eopkg install -y"
+		;;
+	    *)
+		echo -e $RED "Sorry... this is sadly not a supported distro!"
+		exit 0
+		;;
+	esac
+	for i in "${pkg[@]}"
+	do
+	    sleep 0.3
+	    if ! hash "${i}" 2>/dev/null;then
+		echo "${R1}Installing ${i}"
+		${pm} "${i}"
+	    fi
+	done
+	! hash python3 && echo "install python and install lolcat from pip."
+	;;
+    *)
+        printf "${S2}[${S1}!${S2}]${S1} Unsupported operating system detected!!${R0}\n"
+	exit 1
+	;;
+esac
 echo
-printf "${S5}REQUIREMENTS SATISFIED!!${R0}\n" | pv -qL 100
+printf "${S5}Requirements installed!!${R0}\n" | pv -qL 100
 echo
 #<<<----some functions---->>>
 wait() {
@@ -147,7 +138,7 @@ echo '#2) printf "hello world\n"' | pv -qL 1000 | lolcat
 echo -e "
 result==> hello world
 " | pv -qL 1000 | lolcat
-echo '#note in printf we used (\n) to go to next line so that other next objects must be printed on next line! but in echo we do not need to do so.' | pv -qL 1000 | lolcat
+echo '# note in printf we used (\n) to go to next line so that other next objects must be printed on next line! but in echo we do not need to do so.' | pv -qL 1000 | lolcat
 play assets/chapter_1/ch_1pr_2.mp3 > /dev/null 2>&1
 __ENTER__
 
@@ -480,7 +471,7 @@ ${S6}3.                    Basic commands part -2
                        ${S3} *mv — Move or rename directory${R0}
                        ${S3} *rmdir — Remove directory${R0}
 
-${B3}${S5} THIS PROGRAM IS UNDER HEAVY DEVELOPMENT SO PLEASE HAVE PATIENCE! OTHER CHAPTERS WILL BE ADDED VERY SOON !${R0}${R1}
+${B3}${S5} This program is under development so expect some quirks! Other chapters will be added very soon !!${R0}${R1}
 
 "
 else
