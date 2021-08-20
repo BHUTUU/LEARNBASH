@@ -26,7 +26,7 @@ exit_on_signal_SIGINT () {
     echo "${S1} [✗] Received INTR call - Exiting...${R0}"
     exit 0
 }
-trap exit_on_signal_SIGINT SIGINT
+#trap exit_on_signal_SIGINT SIGINT
 #<<<----------Requirements---------->>>
 case ${OS} in
     Android)
@@ -35,7 +35,7 @@ case ${OS} in
 	do
 	    sleep 0.3
 	    if ! hash "${i}" 2>/dev/null;then
-		echo "${R1}Installing ${i}"
+		echo -e "${R1}Installing ${i}"
 		pkg install "${i}" -y
 	    fi
 	done
@@ -80,7 +80,7 @@ case ${OS} in
 	do
 	    sleep 0.3
 	    if ! hash "${i}" 2>/dev/null;then
-		echo "${R1}Installing ${i}"
+		echo -e "${R1}Installing ${i}"
 		${pm} "${i}"
 	    fi
 	done
@@ -402,11 +402,270 @@ example:- rmdir test   #it will delete test directory if it is empty
 play assets/chapter_3/ch_3pr_6.mp3 > /dev/null 2>&1
 __ENTER__
 }
+
+__chapter4__() {
+echo -e "      ${B4} ${S2}CHAPTER:- 4 ${R0} ${R1}"
+echo
+echo -e "
+      ${S6}In this chapter we will learn some advanced command. So let's start!!${R0}
+" | pv -qL 1000
+play assets/chapter_4/ch_4pr_1.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+ locate — Locate a specific file or directory
+
+          This is by far the simplest way to find a file or directory.
+          You can keep your search broad if you don’t know what exactly it is
+          you’re looking for, or you can narrow the scope by using wildcards
+          or regular expressions.
+
+Syntax: locate [option(s)] file_name(s)
+
+Common options: -q, -n, -i
+
+Exit Status: This command will exit with status 0 if any specified match found.
+             If no match founds or a fatal error encountered, then it will exit with
+             status 1. In future chapters we will learn how to use these exit status for
+             doing proper thing in a script. Till then just remember that, if, any command
+              runs successfully then it will exit with status 0.
+" | pv -qL 1000 | lolcat
+play assets/chapter_4/ch_4pr_2.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+ less — view the contents of a text file
+
+        The less command allows you to view files without opening an editor.
+        It’s faster to use, and there’s no chance of you inadvertently
+        modifying the file.
+
+Syntax: less file_name
+
+Common options: -e, -f, -n
+
+To exit less just press these keys combination:- 'esc' + ':' + 'q'
+
+" | pv -qL 1000 | lolcat
+play assets/chapter_4/ch_4pr_3.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+ compgen — Shows all available commands, aliases, and functions
+
+           compgen is a handy command when you need to reference all
+           available commands, aliases, and functions.
+
+Syntax: compgen [option(s)]
+
+Common options: -a, -c, -d
+" | pv -qL 1000 | lolcat
+play assets/chapter_4/ch_4pr_4.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+ > — redirect stdout
+
+     The > character is the redirect operator. This takes the output
+     from the preceding command that you’d normally see in the terminal
+     and sends it to a file that you give it. As an example, take
+
+     echo “contents of file1” > file1.
+
+     Here it creates a file called file1 and puts the echoed string into it.
+Note:- if you use this > character to put your objects in a particular file,
+       it will erase the previously written things in that file if found something!!
+
+       so, if you don't want to erase previous things just use > this character
+       two times i.e >>
+
+example:-
+          echo \"my name is BHUTUU\" > test1
+
+     result:- It will write 'my name is BHUTUU' in test1 file
+
+ now let's write something more in the same file
+
+
+         echo \"I love BHUTUU\" > test1
+
+     result:- It will erase the previous line and write 'I love BHUTUU' in that file
+
+ if we had done it in following after writing first line:-
+         echo \"I love BHUTUU\" >> test1
+
+     result:- It would have kept the previous line as usual and also write
+              'I love BHUTUU' in the next line.
+
+
+Syntax: >
+
+Common options: n/a
+
+" pv -qL 1000 | lolcat
+play assets/chapter_4/ch_4pr_5.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+ cat — Read a file, create a file, and concatenate files
+
+       cat is one of the more versatile commands and serves three main
+       functions: displaying them, combining copies of them, and
+       creating new ones.
+
+Syntax: cat [option(s)] [file_name(s)] [-] [file_name(s)]
+
+Common options: -n, -E, -s, -v, -A
+
+examples:-
+#1) To view a single file:->
+
+Command:- cat filename
+
+Output:- It will show content of given filename
+
+#2) To view multiple files:->
+
+Command:- cat file1 file2
+
+Output:- This will show the content of file1 and file2.
+
+#3) To view contents of a file preceding with line numbers:->
+
+Command:- cat -n filename
+
+Output:- It will show content with line number
+
+example:- cat -n  BHUTUU.txt
+1)This is BHUTUU
+2)A unique array
+
+#4) Create a file:->
+
+Command:- cat >newfile
+
+Output:- Will create and a file named newfile
+" | pv -qL 1000 | lolcat
+play assets/chapter_4/ch_4pr_6.1.mp3 > /dev/null 2>&1
+__ENTER__
+
+echo -e "
+#5) Copy the contents of one file to another file:->
+
+Command:- cat [filename-whose-contents-is-to-be-copied] > [destination-filename]
+
+Output:- The content will be copied in destination file
+
+#6) Cat command can suppress repeated empty lines in output:->
+
+Command:- cat -s BHUTUU.txt
+
+Output:- Will suppress repeated empty lines in output
+
+#7) Cat command can append the contents of one file to the end of another file:->
+
+Command:- cat file1 >> file2
+
+Output:- Will append the contents of one file to the end of another file
+
+#8) Cat command can display content in reverse order using tac command:->
+
+Command:- tac filename
+
+Output:- Will display content in reverse order
+
+#9) Cat command can highlight the end of line:->
+
+Command:- cat -E \"filename\"
+
+Output:- Will highlight the end of line
+
+#10) If you want to use the -v, -E and -T option together,
+     then instead of writing -vET in the command, you can
+     just use the -A command line option->
+
+Command:- cat -A  \"filename\"
+
+#11) Cat command to open dashed files:->
+
+
+Command:- cat -- \"-dashfile\"
+
+Output:- Will display the content of -dashfile
+
+#12) Cat command if the file has a lot of content and can’t fit in the terminal:->
+
+Command:-cat \"filename\" | more
+
+Output:- Will show that much content, which could fit in terminal and will ask to show more.
+
+#13) Cat command to merge the contents of multiple files:->
+
+Command:- cat \"filename1\" \"filename2\" \"filename3\" > \"merged_filename\"
+
+Output:- Will merge the contents of file in respective order and will insert that content in \"merged_filename\"
+
+#14) Cat command to display the content of all text files in the folder:->
+
+Command:-cat *.txt
+
+Output:- Will show the content of all text files present in the folder.
+
+#15) Cat command to write in an already existing file:->
+
+Command:- cat >> BHUTUU.txt
+          The newly added text.
+
+Output:- Will append the text \"The newly added text.\" to the end of the file.
+" | pv -qL 1000 | lolcat
+play assets/chapter_4/ch_4pr_6.2.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+Let's see one more example:-
+
+cat <<- VAR > \${HOME}/BHUTUU.txt
+hello my name is Suman kumar ~BHUTUU.
+I love BHUTUU.
+I love to make automation programs.
+VAR
+
+
+result:- It will write the following in BHUTUU.txt file in home directory:-
+         hello my name is Suman kumar ~BHUTUU.
+         I love BHUTUU.
+         I love to make automation programs.
+
+NOTE:-
+      #you can use '>>' in place of '>' for declaring path and file name of the output
+       as you already knew the diffrence between the result of '>' and '>>' .!
+
+      #you can write any variable in place of 'VAR'. It is here used to set the
+       starting and ending point of the objects to be written in the output file.
+" | pv -qL 1000 | lolcat
+play assets/chapter_4/ch_4pr_6.3.mp3 > /dev/null 2>&1
+__ENTER__
+
+}
 if [[ ${comand} == 'startlearning -2' ]]; then
-__chapter2__
-__chapter3__
+chap=(2 3 4)
+for i in ${chap[@]}; do
+__chapter${i}__
+done
 elif [[ ${comand} == 'startlearning -3' ]]; then
-__chapter3__
+chap=(3 4)
+for i in ${chap[@]}; do
+__chapter${i}__
+done
+elif [[ ${comand} == 'startlearning -4' ]]; then
+chap=(4)
+for i in ${chap[@]}; do
+__chapter${i}__
+done
+#elif [[ ${comand} == 'startlearning -5' ]]; then
+#chap=(5 6)
+#for i in ${chap[@]}; do
+#__chapter${i}__
+#done
+#elif [[ ${comand} == 'startlearning -6' ]]; then
+#chap=(6)
+#for i in ${chap[@]}; do
+#__chapter${i}__
+#done
 
 elif [[ ${comand} == 'startlearning -u' || ${comand} == 'startlearning --update' ]]; then
 git pull
@@ -464,19 +723,27 @@ ${S6}2.                    Introduction to basic commands${R0}
                        ${S3} *mkdir -directory creating command${R0}
                        ${S3} *grep  -search command${R0}
 
-${S6}3.                    Basic commands part -2
+${S6}3.                    Basic commands part -2${R0}
                        ${S3} *man — Print manual or get help for a command${R0}
                        ${S3} *cd — Change directory${R0}
                        ${S3} *pwd — Print working directory${R0}
                        ${S3} *mv — Move or rename directory${R0}
                        ${S3} *rmdir — Remove directory${R0}
 
+${S6}4.                    Introduction to some advanced commands${R0}
+                       ${S3} *locate — Locate a specific file or directory${R0}
+                       ${S3} *less — view the contents of a text file${R0}
+                       ${S3} *compgen — Shows all available commands, aliases, and functions${R0}
+                       ${S3} *> — redirect stdout${R0}
+                       ${S3} *cat — Read a file, create a file, and concatenate files${R0}
+
 ${B3}${S5} This program is under development so expect some quirks! Other chapters will be added very soon !!${R0}${R1}
 
 "
 else
-__chapter1__
-__chapter2__
-__chapter3__
+chap=(1 2 3 4)
+for i in ${chap[@]}; do
+__chapter${i}__
+done
 fi
 
