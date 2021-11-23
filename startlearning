@@ -24,9 +24,10 @@ OS=$(uname -o)
 distro=$(pwd)
 exit_on_signal_SIGINT () {
     echo "${S1} [✗] Received INTR call - Exiting...${R0}"
-    exit 0
+#    exit 0
+return 1
 }
-#trap exit_on_signal_SIGINT SIGINT
+trap exit_on_signal_SIGINT SIGINT
 #<<<----------Requirements---------->>>
 case ${OS} in
     Android)
@@ -100,7 +101,7 @@ wait() {
 }
 __ENTER__() {
   echo
-  printf "Press enter key to continue${T}__\e[0;0;0m\n"
+  printf "Press enter key to continue${T}__\e[0;0;0m"
   read ENTER
   echo
 }
@@ -639,8 +640,110 @@ NOTE:-
 " | pv -qL 1000 | lolcat
 play assets/chapter_4/ch_4pr_6.3.mp3 > /dev/null 2>&1
 __ENTER__
-
 }
+__chapter5__() {
+echo -e "      ${B4} ${S2}CHAPTER:- 5 ${R0} ${R1}"
+echo
+echo -e "
+      In this chapter we are going to learn some more useful linux commands! so let's get  started
+" | pv -qL 1000 | lolcat
+play assets/chapter_5/ch_5pr_1.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+  | — Pipe
+
+         A pipe takes the standard output of one command
+         and passes it as the input to another.
+
+Syntax: |
+
+Common options: n/a
+
+For example:-
+
+   echo \"hello\" | grep -o \"o\"
+
+   Result:- o
+" | pv -qL 1000 | lolcat
+play assets/chapter_5/ch_5pr_2.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+  head — Read the start of a file
+
+         By default, the head command displays the first
+         10 lines of a file. There are times when you may
+         need to quickly look at a few lines in a file and
+         head allows you to do that. A typical example of
+         when you’d want to use head is when you need to
+         analyze logs or text files that change frequently.
+
+Syntax: head [option(s)] file(s)
+
+Common options: -n
+" | pv -qL 1000 | lolcat
+play assets/chapter_5/ch_5pr_3.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+  tail — Read the end of a file
+
+         By default, the tail command displays the last
+         10 lines of a file. There are times when you may
+         need to quickly look at a few lines in a file and
+         tail allows you to do that. A typical example of
+         when you’d want to use tail is when you need to
+         analyze logs or text files that change frequently.
+
+Syntax: tail [option(s)] file_names
+
+Common options: -n
+" | pv -qL 1000 | lolcat
+play assets/chapter_5/ch_5pr_4.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+chmod — Sets the file permissions flag on a file or folder
+
+         There are situations that you’ll come across where you
+         or a colleague will try to upload a file or modify a
+         document and you receive an error because you don’t
+         have access. The quick fix for this is to use chmod.
+         Permissions can be set with either alphanumeric characters
+         (u, g, o) and can be assigned their access with w, r, x.
+         Conversely, you can also use octal numbers (0-7) to change the
+         permissions. For example, chmod 777 my_file will give access to
+         everyone.
+
+Syntax: chmod [option(s)] permissions file_name
+
+Common options: -f, -v
+" | pv -qL 1000 | lolcat
+play assets/chapter_5/ch_5pr_5.mp3 > /dev/null 2>&1
+__ENTER__
+echo -e "
+  exit — Exit out of a directory
+
+         The exit command will close a terminal window, end the execution
+         of a shell script, or log you out of an SSH remote access session.
+
+Syntax: exit
+
+Common options: n/a
+" | pv -qL 1000 | lolcat
+play assets/chapter_5/ch_5pr_6.mp3 > /dev/null 2>&1
+__ENTER__
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 if [[ ${comand} == 'startlearning -2' ]]; then
 chap=(2 3 4)
 for i in ${chap[@]}; do
@@ -656,11 +759,11 @@ chap=(4)
 for i in ${chap[@]}; do
 __chapter${i}__
 done
-#elif [[ ${comand} == 'startlearning -5' ]]; then
-#chap=(5 6)
-#for i in ${chap[@]}; do
-#__chapter${i}__
-#done
+elif [[ ${comand} == 'startlearning -5' ]]; then
+chap=(5 6)
+for i in ${chap[@]}; do
+__chapter${i}__
+done
 #elif [[ ${comand} == 'startlearning -6' ]]; then
 #chap=(6)
 #for i in ${chap[@]}; do
